@@ -1,0 +1,16 @@
+spring:
+  datasource:
+    url: jdbc:oracle:thin:@//10.10.200.58:1521/TKLDB
+    username: TK_ITSMDEV
+    password: itsmdev
+    driverClassName: oracle.jdbc.driver.OracleDriver
+    testWhileIdle: true
+    validationQuery: SELECT 1
+  jpa:
+    properties:
+      hibernate:
+        show_sql: true
+        use_sql_comments: true
+        # dialect: org.hibernate.dialect.Oracle10gDialect
+    hibernate:
+        ddl-auto: none
