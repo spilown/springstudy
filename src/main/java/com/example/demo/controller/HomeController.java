@@ -1,18 +1,25 @@
 package com.example.demo.controller;
 
 
-import org.springframework.data.domain.Page;
-import org.springframework.data.domain.PageRequest;
-import org.springframework.data.domain.Pageable;
-import org.springframework.stereotype.Controller;
-import org.springframework.web.bind.annotation.GetMapping;
+import java.util.List;
 
-import com.example.demo.entity.CarallocationReturnEntity;
-import com.example.demo.repository.CarAllocationReturnRepo;
-import com.example.demo.repository.CarReturnInfoRepo;
+import org.springframework.stereotype.Controller;
+import org.springframework.validation.BindingResult;
+import org.springframework.validation.FieldError;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.ResponseBody;
+
+import com.example.demo.dto.test.TestRequest;
+import com.example.demo.entity.CarReturnEntity;
+import com.example.demo.entity.CodeEntity;
+import com.example.demo.repository.CarReturnRepo;
+import com.example.demo.repository.CodeRepo;
 import com.example.demo.repository.TestRepo;
 import com.example.demo.repository.UserRepo;
 
+import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 
@@ -23,27 +30,39 @@ public class HomeController {
 
     private final TestRepo repo;
     private final UserRepo userRepo;
-    private final CarAllocationReturnRepo carReturnRepo;
-    private final CarReturnInfoRepo carReturnInfoRepo;
+    private final CarReturnRepo carReturnRepo;
+    private final CodeRepo carReturnInfoRepo;
 
+    @ResponseBody
     @GetMapping("/")
     public String main() {
 
-        // List<TestEntity> list = repo.findAll();
-        Pageable limit = PageRequest.of(0,10);
         
-        Page<CarallocationReturnEntity> list =carReturnRepo.findAll(limit);
-        for (CarallocationReturnEntity testEntity : list) {
-            log.info("result: {}", testEntity);
-            
-        }
+        List<CodeEntity> list = carReturnInfoRepo.findByFunCtrlNo("2022010196");
+        log.info("list size: {}", list.size());
 
-     /*     Page<CarReturnInfoEntity> list2 =carReturnInfoRepo.findAll(limit);
-        for (CarReturnInfoEntity testEntity : list2) {
-            log.info("result2: {}", testEntity);
-            
-        }
-        */ 
+        CodeEntity CE = list.get(0);
+        CarReturnEntity carReturn = CE.getCarReturnInfo();
+        log.info(carReturn.getUser().toString());
+
+        // for (CodeEntity carReturnInfoEntity : list) {
+        //     log.info("carReturnInfoEntity: {}", carReturnInfoEntity.getCarReturnInfo());
+        // }
+       
         return "mainPage";
+    }
+
+    @ResponseBody
+    @RequestMapping(method = RequestMethod.GET, value = "/test")
+    public String test( @Valid TestRequest testrequest, BindingResult bindingResult) {
+        if(bindingResult.hasErrors()) {
+            for(FieldError err: bindingResult.getFieldErrors()) {
+                log.info("err field: {}  reason: {}", err.getField(), err.getDefaultMessage());
+            }
+        }
+        
+
+        return testrequest.toString();
+
     }
 }

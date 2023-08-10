@@ -22,11 +22,11 @@ import lombok.ToString;
 @Entity
 @Getter
 @Setter
-@ToString
+@ToString(exclude = "carReturnInfo")
 @Immutable
 @Table(name="add_ch013d", schema = "tk_bodev")
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
-public class CarReturnInfoEntity {
+public class CodeEntity {
     @Id
     @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "ADD_CH013D_SEQ")
     @SequenceGenerator(sequenceName = "ADD_CH013D_SEQ", allocationSize = 1, name = "ADD_CH013D_SEQ")
@@ -46,22 +46,10 @@ public class CarReturnInfoEntity {
     private int etcOuterCount;
     private String type;
 
-    @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "car_return_id")
-    private CarallocationReturnEntity carReturn; //주문 회원
 
-    // @Builder
-    // public CarReturnInfoEntity(CarallocationReturn carallocationReturn) {
-    //     this.seq = carallocationReturn.getSeq();
-    //     this.funCtrlNo = carallocationReturn.getFunCtrlNo();
-    //     this.xender = carallocationReturn.getXender();
-    //     this.item = carallocationReturn.getItem();
-    //     this.sceneYedahamCount = carallocationReturn.getSceneYedahamCount();
-    //     this.sceneOuterCount = carallocationReturn.getSceneOuterCount();
-    //     this.deliveryYedahamCount = carallocationReturn.getDeliveryYedahamCount();
-    //     this.deliveryOuterCount = carallocationReturn.getDeliveryOuterCount();
-    //     this.etcYedahamCount = carallocationReturn.getEtcYedahamCount();
-    //     this.etcOuterCount = carallocationReturn.getEtcOuterCount();
-    //     this.type = carallocationReturn.getType();
-    // }
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "car_return_id", referencedColumnName="CAR_RETURN_ID")
+    private CarReturnEntity carReturnInfo;
+
+
 }
