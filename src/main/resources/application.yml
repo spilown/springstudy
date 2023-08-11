@@ -1,20 +1,24 @@
 spring:
   datasource:
-    url: jdbc:oracle:thin:@//10.10.200.58:1521/TKLDB
+    url: jdbc:p6spy:oracle:thin:@//10.10.200.58:1521/TKLDB
     username: TK_ITSMDEV
     password: itsmdev
-    driverClassName: oracle.jdbc.driver.OracleDriver
+    driverClassName: com.p6spy.engine.spy.P6SpyDriver
     testWhileIdle: true
     validationQuery: SELECT 1
   jpa:
     properties:
       hibernate:
-        show_sql: true
-        format_sql: true
         use_sql_comments: true
         ddl-auto: none
 
 logging.level:
   root: info
-  org.hibernate.SQL: debug
-  org.hibernate.type: trace
+  #org.hibernate.SQL: debug
+  #org.hibernate.type: trace
+  #org.hibernate.type.descriptor.sql.BasicBinder: trace
+
+decorator:
+  datasource:
+    p6spy:
+      enable-logging: true

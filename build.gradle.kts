@@ -35,6 +35,7 @@ dependencies {
 	runtimeOnly("com.h2database:h2")
 	runtimeOnly("com.oracle.database.jdbc:ojdbc8")
 	implementation (group= "com.oracle.ojdbc", name= "orai18n", version= "19.3.0.0")
+	implementation ("com.github.gavlyukovskiy:p6spy-spring-boot-starter:1.8.1")
 	annotationProcessor("org.projectlombok:lombok")
 	testImplementation("org.springframework.boot:spring-boot-starter-test")
 	// testImplementation("org.springframework.security:spring-security-test")
