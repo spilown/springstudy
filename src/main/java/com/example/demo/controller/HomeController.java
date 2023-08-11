@@ -12,7 +12,6 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.example.demo.dto.test.TestRequest;
-import com.example.demo.entity.CarReturnEntity;
 import com.example.demo.entity.CodeEntity;
 import com.example.demo.repository.CarReturnRepo;
 import com.example.demo.repository.CodeRepo;
@@ -39,15 +38,15 @@ public class HomeController {
 
         
         List<CodeEntity> list = carReturnInfoRepo.findByFunCtrlNo("2022010196");
-        log.info("list size: {}", list.size());
+        // log.info("list size: {}", list.size());
 
-        CodeEntity CE = list.get(0);
-        CarReturnEntity carReturn = CE.getCarReturnInfo();
-        log.info(carReturn.getUser().toString());
+        // CodeEntity CE = list.get(0);
+        // CarReturnEntity carReturn = CE.getCarReturnInfo();
+        // log.info(carReturn.getUser().toString());
 
-        // for (CodeEntity carReturnInfoEntity : list) {
-        //     log.info("carReturnInfoEntity: {}", carReturnInfoEntity.getCarReturnInfo());
-        // }
+        for (CodeEntity carReturnInfoEntity : list) {
+            log.info("carReturnInfoEntity: {}", carReturnInfoEntity.getCarReturnInfo().getUser().toString());
+        }
        
         return "mainPage";
     }
