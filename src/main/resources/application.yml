@@ -1,3 +1,5 @@
+server.port: 8088
+
 spring:
   datasource:
     url: jdbc:p6spy:oracle:thin:@//10.10.200.58:1521/TKLDB
@@ -18,7 +20,7 @@ logging.level:
   #org.hibernate.type: trace
   #org.hibernate.type.descriptor.sql.BasicBinder: trace
 
-decorator:
-  datasource:
-    p6spy:
-      enable-logging: true
+# decorator:
+#   datasource:
+#     p6spy:
+#       enable-logging: true
