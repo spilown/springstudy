@@ -42,6 +42,10 @@ dependencies {
 	// testImplementation("org.springframework.security:spring-security-test")
 }
 
+test {
+	useJUnitPlatform()
+}
+
 // === ⭐ QueryDsl 빌드 옵션 (선택) ===
 def querydslDir = "$buildDir/generated/querydsl"
 
